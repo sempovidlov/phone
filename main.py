@@ -16,10 +16,9 @@ with open (target_file) as csv_file:
         else:
             phone = []
             phone_deduplicated = []
-            for match in phonenumbers.PhoneNumberMatcher(row["Information"], "RU"):
-                phone.append(str(phonenumbers.format_number(match.number, phonenumbers.PhoneNumberFormat.E164)))
-            for match in phonenumbers.PhoneNumberMatcher(row["Information"], "UA"):
-                phone.append(str(phonenumbers.format_number(match.number, phonenumbers.PhoneNumberFormat.E164)))
+            for countrycode in ["RU","UA"]:
+                 for match in phonenumbers.PhoneNumberMatcher(row["Information"], countrycode):
+                    phone.append(str(phonenumbers.format_number(match.number, phonenumbers.PhoneNumberFormat.E164)))
 
             for i in phone:
                 if i not in phone_deduplicated:
